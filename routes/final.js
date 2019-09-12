@@ -28,20 +28,34 @@ router.post('/search', function (req, res) {
     //  TODO 1 - (6 pts) you need FIVE variables to do the following
     //  create your variables here
     //  TODO 1A you need an array for the jobs that were found by your code
+    let outList = [];
     //  TODO 1B you need the average salary for the list of jobs being returned. This one is here for you already
     let average = 0;
     //  TODO 1C you need a title for the page - "Jobs", "Jobs for Managers in Dallas", "Jobs in Fort Worth"
+    let title = "Jobs";
     //  TODO 1D you need a variable to hold the city entered by the user
     let city = req.body.city;
     //  TODO 1E you need another variable to hold the category entered by the user
-
+    let category = req.body.category;
     //  TODO 2 - (40 pts) List of things to do - look at TODOs 4 and 5. You will create functions that you can use here. Use them
     //      TODO A - IF the category and city fields are empty THEN list ALL jobs
+    outList = jobList;
     //      TODO B - IF the category and city fields BOTH have data then THEN list all jobs for that city for that category
-    //      TODO C - IF the category field has data THEN list all jobs in that category
-    //      TODO D - IF the city field has data THEN list all jobs in that city
 
+    //      TODO C - IF the category field has data THEN list all jobs in that category
+    if (category) {
+        outlist = getJobsByCategory(outlist, category);
+        title += ` for ${category} `
+    }
+    //      TODO D - IF the city field has data THEN list all jobs in that city
+    if (city) {
+        outList = getJobsByCity(outList, city);
+        title +=  `in ${city}`
+    }
     //  TODO EXTRA CREDIT (20 pts) - find the job with the highest salary
+    if (outList.length > 0) {
+        average = getAverageSalaray(outList);
+    }
 
     //  this will format the money amount nicely
     average = average.formatMoney(0, "$ ");
@@ -80,7 +94,8 @@ router.get('job/:jobid', function (req, res, next) {
  *              directorList = get JobsByCategory(jobs, 'Director')
  */
 //  TODO 4 - (15pts) -  Create the getJobsByCategory function
-function getJobsByCategory(put, your, parameters, here) {
+function getJobsByCategory(jobList, category) {
+    let outList = jobList.filter(job)
     //  TODO filter the list of jobs and find the jobs that match the job title
     //  you will return that array back to your calling function
 }

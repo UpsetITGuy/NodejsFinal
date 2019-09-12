@@ -18,8 +18,17 @@ block content
             th  id
             th  Company
             th  Salary
+            th Applied on
+            th City
+            th Title
+            th Category
         each job in jobs
             tr
                 td= job.id
                 td #{job.company}
                 td #{job.salary.formatMoney(0, "$ ")}
+                td #{job.appliedOn}
+                td #{job.city}
+                td #{job.title}
+                td #{job.category}
+    h3 Avg Salary: #{average}
