@@ -44,7 +44,7 @@ router.post('/search', function (req, res) {
 
     //      TODO C - IF the category field has data THEN list all jobs in that category
     if (category) {
-        outlist = getJobsByCategory(outlist, category);
+        outList = getJobsByCategory(outList, category);
         title += ` for ${category} `
     }
     //      TODO D - IF the city field has data THEN list all jobs in that city
@@ -54,7 +54,7 @@ router.post('/search', function (req, res) {
     }
     //  TODO EXTRA CREDIT (20 pts) - find the job with the highest salary
     if (outList.length > 0) {
-        average = getAverageSalaray(outList);
+        average = getAverageSalary(outList);
     }
 
     //  this will format the money amount nicely
@@ -95,7 +95,8 @@ router.get('job/:jobid', function (req, res, next) {
  */
 //  TODO 4 - (15pts) -  Create the getJobsByCategory function
 function getJobsByCategory(jobList, category) {
-    let outList = jobList.filter(job)
+    let outList = jobList.filter(jobList => jobList.category == category)
+    return outList;
     //  TODO filter the list of jobs and find the jobs that match the job title
     //  you will return that array back to your calling function
 }
@@ -112,7 +113,9 @@ function getJobsByCategory(jobList, category) {
  *              cityList = get getJobsByCity(jobs, req.params.city)
  */
 //  TODO 5 - (15pts) -  Create the getJobsByCity function
-function getJobsByCity(put, your, parameters, here) {
+function getJobsByCity(jobList, city) {
+    let outList = jobList.filter(jobList => jobList.city == city);
+    return outList;
     //  filter the list of jobs and find the jobs that match the city
     //  when you are done return that array back to your calling function
 }
@@ -124,8 +127,14 @@ function getJobsByCity(put, your, parameters, here) {
  *          return:         the average salary of all jobs in that list
  *
  */
-function getAverageSalary(jobs) {
+function getAverageSalary(jobList) {
+let tot = 0;    
+jobList.forEach(function(job) {
+    tot += job.salary;
+    })
+    return tot / jobList.length;
     // TODO 6 - (10 pts) Calculate the average salary for a given list of jobs
+
 }
 
 
